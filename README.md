@@ -1,2 +1,2 @@
-# Lets_Eat_Cookies
-Create a recipe generation system in order to generate a cookie recipe
+# Poetry_Slam
+CSCI 3725 Mission 6: Create a poetry generation and evaluation system.
