@@ -1,7 +1,11 @@
+"""
+TALK ABOUT STUFF
+"""
+
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import json
-from ngram_generator import n_gram
+from n_gram import n_gram
 
 
 def read_file():
@@ -38,10 +42,6 @@ def make_n_gram(words_from_text):
        # print("______________")
         ngram.add_to_ngram(word_tuple, following_word)
         i += 1
-
-
-
-
 
 
 def main():

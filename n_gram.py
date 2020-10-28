@@ -64,10 +64,7 @@ class n_gram(object):
     def retreive_ryming_word(self, two_words, word_to_rhyme_with):
         """Based on the two given words (in the form of a tuple) selects the next word 
         that rhymes probabilistically"""
-        #word_to_rhyme_with.replace('.', '')
-        #print(word_to_rhyme_with.replace('.', ''))
         rhymes = pronouncing.rhymes(word_to_rhyme_with.lower())
-        #print(rhymes)
         if(two_words in self.gram):
             following = self.gram[two_words]
             word_probabilities = []
