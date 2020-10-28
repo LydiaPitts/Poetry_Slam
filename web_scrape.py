@@ -39,6 +39,7 @@ def getCookieRecipes(link_list):
        #list_items = driver.find_elements_by_tag_name("em") # get list items for ingredients
         i = 0
         for item in ingredients: # loop through ingredients
+            file_name = 
             print(item)
             print(i)
             i += 1
@@ -51,10 +52,19 @@ def getCookieRecipes(link_list):
     return recipes
 
 
+def read_file():
+    i = 1
+    while(i <= 13):
+        print("hello")
+        i +=1 
+
+
+
+
+
 
 def main():
-    #getCookieRecipes(['https://bookstr.com/article/21-hilarious-limericks-for-national-limerick-day/'])
-    getCookieRecipes(['https://www.familyfriendpoems.com/poems/other/limerick/'])
+    read_file()
 
 """
 Driver for the entire program

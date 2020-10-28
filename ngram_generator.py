@@ -22,28 +22,28 @@ class Ngram(object):
         self.gram = gram
         self.words = words
 
-    def addToNgram(self, twoWords, followingWord):
+    def add_to_ngram(self, two_words, following_word):
         """Adds a tuple of two words as they key to the Ngram, and the word that follows 
         those two words (and the # of times it follows those words) as the value"""
         following = {}
-        if(twoWords in self.gram):
-            following = self.gram[twoWords]
-            if(followingWord in following.keys()):
-                following[followingWord] += 1
+        if(two_words in self.gram):
+            following = self.gram[two_words]
+            if(following_word in following.keys()):
+                following[following_word] += 1
             else:
-                following.setdefault(followingWord, 1)
-            self.gram[twoWords] = following
-            #print(self.gram[twoWords])
+                following.setdefault(following_word, 1)
+            self.gram[two_words] = following
+            #print(self.gram[two_words])
         else:
-            following.setdefault(followingWord, 1)
-            self.gram.setdefault(twoWords, following)
-            #print(self.gram[twoWords])
+            following.setdefault(following_word, 1)
+            self.gram.setdefault(two_words, following)
+            #print(self.gram[two_words])
 
-    def retreiveNextWord(self, twoWords):
+    def retreive_next_word(self, two_words):
         """Based on the two given words (in the form of a tuple) selects the next word 
         probabilistically"""
-        if(twoWords in self.gram):
-            following = self.gram[twoWords]
+        if(two_words in self.gram):
+            following = self.gram[two_words]
             word_probabilities = []
             for key in following.keys():
                 j = 0
@@ -57,13 +57,15 @@ class Ngram(object):
             return self.words[num]
 
 
-    def retreiveRymingWord(self, twoWords, wordToRhymeWith):
+    def retreive_ryming_word(self, two_words, word_to_rhyme_with):
         """Based on the two given words (in the form of a tuple) selects the next word 
         that rhymes probabilistically"""
-        rhymes = pronouncing.rhymes(wordToRhymeWith.lower())
-        print(rhymes)
-        if(twoWords in self.gram):
-            following = self.gram[twoWords]
+        #word_to_rhyme_with.replace('.', '')
+        #print(word_to_rhyme_with.replace('.', ''))
+        rhymes = pronouncing.rhymes(word_to_rhyme_with.lower())
+        #print(rhymes)
+        if(two_words in self.gram):
+            following = self.gram[two_words]
             word_probabilities = []
             for key in following.keys():
                 if(key in rhymes):
@@ -75,6 +77,8 @@ class Ngram(object):
                 num = random.randint(0, len(word_probabilities)-1)
                 #print(word_probabilities[num], " = next character rhyme")
                 return word_probabilities[num]
+        if len(rhymes) < 1:
+            return word_to_rhyme_with
         num = random.randint(0, len(rhymes))
         #print(rhymes[num] + " = rand rhyme")
         return rhymes[num]
@@ -85,12 +89,13 @@ class Ngram(object):
 
 def main():
     Firstgram = Ngram(gram={}, words=["word", "word2", "word3"])
-    Firstgram.addToNgram(("hello", "world"), "thank")
-    Firstgram.addToNgram(("hello", "world"), "thank")
-    Firstgram.addToNgram(("hello", "world"), "sure")
-    Firstgram.addToNgram(("hello", "there"), "hi")
-    Firstgram.retreiveNextWord(("hello", "world"))
-    Firstgram.retreiveRymingWord(("hello", "world"), "SPank")
+    Firstgram.add_to_ngram(("hello", "world"), "thank")
+    Firstgram.add_to_ngram(("hello", "world"), "thank")
+    Firstgram.add_to_ngram(("hello", "world"), "sure")
+    Firstgram.add_to_ngram(("hello", "there"), "hi")
+    Firstgram.retreive_next_word(("hello", "world"))
+    Firstgram.retreive_ryming_word(("hello", "world"), "spank.")
+
     
 
 if __name__ == "__main__":
