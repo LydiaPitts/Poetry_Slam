@@ -1,62 +1,43 @@
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import json
-
-
-"""
-In this function, we are crawling the website sally's baking addiction for cookie recipes for our inspiring set
-
-Essentially, we start the crawl from the link to the category of the website listing cookie recipes, then
-go to the page for each recipe and extract the ingredients
-
-@params:
-    link_list --> the links to recipes we want!
-
-@returns:
-    recipes --> a dictionary where the keys are recipe names, and the values are dictionaries mapping each ingredient to its quantity
-
-"""
-def getCookieRecipes(link_list):
-    recipes = {}
-    #the below 5 lines set up the conditions for our web browser
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--incognito")
-    chrome_options.add_argument("--headless")
-
-    # create our webdriver object
-    driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), chrome_options=chrome_options)
-
-    #now, we want to loop through the recipe links
-    for link in link_list:
-        #open link to recipe
-        driver.get (link) 
-       
-        ingredients = driver.find_element_by_class_name("entry-summary poem-excerpt")
-        #list_items = ingredients.find_elements_by_tag_name("li")
-
-       #list_items = driver.find_elements_by_tag_name("em") # get list items for ingredients
-        i = 0
-        for item in ingredients: # loop through ingredients
-            file_name = 
-            print(item)
-            print(i)
-            i += 1
-        
-    driver.close()
-    #with open('recipes.json', 'w') as fp:
-    #    json.dump(recipes, fp)
-
-    #fp.close()
-    return recipes
+from ngram_generator import n_gram
 
 
 def read_file():
+    """Reads Bob Ross scripts and makes a list of all the words in the text in order."""
     i = 1
+    total_texts = []
     while(i <= 13):
-        print("hello")
-        i +=1 
+        file_name = "./bob_ross_season_scripts/s28/s28ep" + str(i) + ".txt"
+        file = open(file_name)
+        text = file.read()
+        text = text.replace('.', '')
+        text = text.replace(',', '')
+        text = text.replace('-', '')
+        text = text.replace('(', '')
+        text = text.replace(')', '')
+        text = text.split()
+        total_texts.extend(text)
+        i += 1 
+    #print(total_texts)
+    return total_texts
+
+
+def make_n_gram(words_from_text):
+    """Using the list of words from the Bob Ross Scripts, create the n-gram for the text"""
+    ngram = n_gram(gram={}, words=words_from_text)
+    num = len(words_from_text)
+    i = 0
+    while(i < num-3):
+        word_tuple = (words_from_text[i], words_from_text[i+1])
+        following_word = (words_from_text[i+2])
+       # print("______________")
+       # print(word_tuple)
+       # print(following_word)
+       # print("______________")
+        ngram.add_to_ngram(word_tuple, following_word)
+        i += 1
 
 
 
@@ -64,7 +45,8 @@ def read_file():
 
 
 def main():
-    read_file()
+    text = read_file()
+    make_n_gram(text)
 
 """
 Driver for the entire program

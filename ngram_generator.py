@@ -10,7 +10,7 @@ import random
 import pronouncing
 import string
 
-class Ngram(object):
+class n_gram(object):
     """
     Attributes:
         ngram --> nested dictionary where keys are a tuple of two words and the value is 
@@ -33,11 +33,15 @@ class Ngram(object):
             else:
                 following.setdefault(following_word, 1)
             self.gram[two_words] = following
+            #print(two_words)
             #print(self.gram[two_words])
+            #print("___________________")
         else:
             following.setdefault(following_word, 1)
             self.gram.setdefault(two_words, following)
+            #print(two_words)
             #print(self.gram[two_words])
+            #print("******************")
 
     def retreive_next_word(self, two_words):
         """Based on the two given words (in the form of a tuple) selects the next word 
@@ -83,12 +87,15 @@ class Ngram(object):
         #print(rhymes[num] + " = rand rhyme")
         return rhymes[num]
 
+    def get_starting_words(self):
+        self.gram.keys()
+
 
 
 
 
 def main():
-    Firstgram = Ngram(gram={}, words=["word", "word2", "word3"])
+    Firstgram = n_gram(gram={}, words=["hello", "world", "there", "thank", "hi"])
     Firstgram.add_to_ngram(("hello", "world"), "thank")
     Firstgram.add_to_ngram(("hello", "world"), "thank")
     Firstgram.add_to_ngram(("hello", "world"), "sure")
