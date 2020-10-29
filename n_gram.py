@@ -65,6 +65,7 @@ class n_gram(object):
         """Based on the two given words (in the form of a tuple) selects the next word 
         that rhymes probabilistically"""
         rhymes = pronouncing.rhymes(word_to_rhyme_with.lower())
+        #print("Rhymes: ", rhymes)
         if(two_words in self.gram):
             following = self.gram[two_words]
             word_probabilities = []

@@ -16,20 +16,9 @@ def main():
 
     limerick = Limerick(ngram)
     starting_words = ngram.get_starting_words()
-
-    words01 = limerick.build_first_or_third(starting_words, 1)
-    words02 = limerick.build_other_lines(words01, 2)
-    words03 = limerick.build_first_or_third(words02, 3)
-    words04 = limerick.build_other_lines(words03, 4)
-    words05 = limerick.build_other_lines(words04, 5)
-    print(limerick.first_line)
-    print(limerick.second_line)
-    print(limerick.third_line)
-    print(limerick.fourth_line)
-    print(limerick.fifth_line)
-
+    limerick.build_full_limerick(starting_words)
+    limerick.print_limerick()
     limerick.evalutate() 
-
 
 if __name__ == "__main__":
     main()

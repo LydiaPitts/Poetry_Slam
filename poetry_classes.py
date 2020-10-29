@@ -86,16 +86,42 @@ class Limerick(object):
             self.fifth_line = line
         return starting_words
 
+
+    def build_full_limerick(self, starting_words):
+        words01 = self.build_first_or_third(starting_words, 1)
+        words02 = self.build_other_lines(words01, 2)
+        words03 = self.build_first_or_third(words02, 3)
+        words04 = self.build_other_lines(words03, 4)
+        words05 = self.build_other_lines(words04, 5)
+
+    def print_limerick(self):
+        print(self.first_line)
+        print(self.second_line)
+        print(self.third_line)
+        print(self.fourth_line)
+        print(self.fifth_line)
+
+
     
+    def get_tags(self, doc):
+        tags = []
+        for token in doc:
+            tags.append(token.pos_)
+            #print(token.text, token.pos_)
+        print(tags)
+        return tags
+
+
     def evalutate(self):
         print("__________________________________")
         print("I'm evalutaing now:")
         nlp = spacy.load("en_core_web_sm")
-        doc = nlp(self.first_line)
-        #doc = nlp("Apple is looking at buying U.K. startup for $1 billion")
-        
-        for token in doc:
-            print(token.text, token.pos_)
+        line_1_tags = self.get_tags(nlp(self.first_line))
+        line_2_tags = self.get_tags(nlp(self.second_line))
+        line_3_tags = self.get_tags(nlp(self.third_line))
+        line_4_tags = self.get_tags(nlp(self.fourth_line))
+        line_5_tags = self.get_tags(nlp(self.fifth_line))
+
 
 
         # Parse Tree
