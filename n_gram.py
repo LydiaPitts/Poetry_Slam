@@ -80,14 +80,16 @@ class n_gram(object):
                 return word_probabilities[num]
         if len(rhymes) < 1:
             return word_to_rhyme_with
-        num = random.randint(0, len(rhymes))
+        num = random.randint(0, len(rhymes)-1)
         #print(rhymes[num] + " = rand rhyme")
         return rhymes[num]
 
+
     def get_starting_words(self):
+        """Get two random starting words from within the text"""
         num = random.randint(0, len(self.gram)-1)
         keys = list(self.gram)
-        return tuple(keys)
+        return tuple(keys[num])
 
 
 

@@ -12,7 +12,7 @@ def read_file():
     """Reads Bob Ross scripts and makes a list of all the words in the text in order."""
     i = 1
     total_texts = []
-    while(i <= 13):
+    while(i <= 3):
         file_name = "./bob_ross_season_scripts/s28/s28ep" + str(i) + ".txt"
         file = open(file_name)
         text = file.read()
