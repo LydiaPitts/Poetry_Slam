@@ -86,6 +86,9 @@ class Limerick(object):
     
     def evalutation(self):
         # Parse Tree?
-        # Alliteration, assonance
-        # 
+        #    ^ evaluate the gramatical structure??
+        # Alliteration, assonance 
+        #    ^ for style purposes?
+        # Meeter?
+        #    ^ evaluate the "flow" of the poem?
         return 0
