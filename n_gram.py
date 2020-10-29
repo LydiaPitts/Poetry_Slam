@@ -85,9 +85,9 @@ class n_gram(object):
         return rhymes[num]
 
     def get_starting_words(self):
-        self.gram.keys()
-
-
+        num = random.randint(0, len(self.gram)-1)
+        keys = list(self.gram)
+        return tuple(keys)
 
 
 
@@ -99,6 +99,7 @@ def main():
     Firstgram.add_to_ngram(("hello", "there"), "hi")
     Firstgram.retreive_next_word(("hello", "world"))
     Firstgram.retreive_ryming_word(("hello", "world"), "spank.")
+    Firstgram.get_starting_words()
 
     
 
