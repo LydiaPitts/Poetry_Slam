@@ -24,7 +24,6 @@ def read_file():
         text = text.split()
         total_texts.extend(text)
         i += 1 
-    #print(total_texts)
     return total_texts
 
 
@@ -36,10 +35,6 @@ def make_n_gram(words_from_text):
     while(i < num-3):
         word_tuple = (words_from_text[i], words_from_text[i+1])
         following_word = (words_from_text[i+2])
-       # print("______________")
-       # print(word_tuple)
-       # print(following_word)
-       # print("______________")
         ngram.add_to_ngram(word_tuple, following_word)
         i += 1
     return ngram

@@ -5,6 +5,7 @@ WRITE THINGS
 import random
 import pronouncing
 from n_gram import n_gram
+import spacy
 
 class Limerick(object):
     """
@@ -21,6 +22,8 @@ class Limerick(object):
         self.rhyme_a = ""
         self.rhyme_b = ""
         self.n_gram = n_gram
+        self.fitness = 0
+
 
     def get_syllables(self, word):
         word = str(word)
@@ -84,11 +87,27 @@ class Limerick(object):
         return starting_words
 
     
-    def evalutation(self):
-        # Parse Tree?
-        #    ^ evaluate the gramatical structure??
-        # Alliteration, assonance 
-        #    ^ for style purposes?
-        # Meeter?
-        #    ^ evaluate the "flow" of the poem?
+    def evalutate(self):
+        print("__________________________________")
+        print("I'm evalutaing now:")
+        nlp = spacy.load("en_core_web_sm")
+        doc = nlp(self.first_line)
+        #doc = nlp("Apple is looking at buying U.K. startup for $1 billion")
+        
+        for token in doc:
+            print(token.text, token.pos_)
+
+
+        # Parse Tree
+        #    ^ evaluate the gramatical structure
+        
         return 0
+
+
+
+
+
+# Alliteration, assonance 
+        #    ^ for style purposes?
+        # Meter?
+        #    ^ evaluate the "flow" of the poem?

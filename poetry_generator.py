@@ -22,11 +22,13 @@ def main():
     words03 = limerick.build_first_or_third(words02, 3)
     words04 = limerick.build_other_lines(words03, 4)
     words05 = limerick.build_other_lines(words04, 5)
-    print("**********", limerick.first_line)
-    print("**********", limerick.second_line)
-    print("**********", limerick.third_line)
-    print("**********", limerick.fourth_line)
-    print("**********", limerick.fifth_line)
+    print(limerick.first_line)
+    print(limerick.second_line)
+    print(limerick.third_line)
+    print(limerick.fourth_line)
+    print(limerick.fifth_line)
+
+    limerick.evalutate() 
 
 
 if __name__ == "__main__":
