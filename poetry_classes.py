@@ -27,76 +27,31 @@ class Limerick(object):
         pronunciation_list = pronouncing.phones_for_word(word)
         if(len(pronunciation_list) < 1):
             return 1
-        #print(word)
-        #print(pronunciation_list)
         return pronouncing.syllable_count(pronunciation_list[0])
 
 
-
-
     def build_first_or_third(self, starting_words, line_number):
-        syllables = self.get_syllables(starting_words[0]) + self.get_syllables(starting_words[1])
-        line = str(starting_words[0]) + " " + str(starting_words[1])
+        syllables = 0
+        line = ""
         syllable_num = 6
         if(line_number == 3):
             syllable_num = 4
         while syllables < syllable_num:
             next_word = self.n_gram.retreive_next_word(starting_words)
             syllables += self.get_syllables(next_word)
-            line += " " + next_word
+            line += next_word  + " "
             starting_words = (starting_words[1], next_word)
         next_word = self.n_gram.retreive_next_word(starting_words)
-        line += " " + next_word
+        line += next_word
         if line_number == 1:
             self.first_line = line
             self.rhyme_a = next_word
-            print(line, " = " + self.rhyme_a)
+            #print(line, " = " + self.rhyme_a)
         else:
             self.third_line = line
             self.rhyme_b = next_word
-            print(line, " = " + self.rhyme_b)
+            #print(line, " = " + self.rhyme_b)
         starting_words = (starting_words[1], next_word)
-        return starting_words
-
-
-
-
-    def build_first_line(self, starting_words):
-        #print("Start Line 1: ")
-       # print(starting_words)
-        syllables = self.get_syllables(starting_words[0]) + self.get_syllables(starting_words[1])
-        self.first_line = str(starting_words[0]) + " " + str(starting_words[1])
-        while syllables < 6:
-            next_word = self.n_gram.retreive_next_word(starting_words)
-            syllables += self.get_syllables(next_word)
-            self.first_line += " " + next_word
-            starting_words = (starting_words[1], next_word)
-        next_word = self.n_gram.retreive_next_word(starting_words)
-        self.first_line += " " + next_word
-        self.rhyme_a = next_word
-        print(self.first_line, " = " + self.rhyme_a)
-        starting_words = (starting_words[1], next_word)
-        #print(starting_words)
-        #print("^^^^^^")
-        return starting_words
-    
-
-    def build_third_line(self, starting_words):
-        #print("Start line 3: ")
-       # print(starting_words)
-        syllables = 0
-        while syllables < 4:
-            next_word = self.n_gram.retreive_next_word(starting_words)
-            syllables += self.get_syllables(next_word)
-            self.third_line += next_word + " "
-            starting_words = (starting_words[1], next_word)
-        next_word = self.n_gram.retreive_next_word(starting_words)
-        self.third_line += next_word
-        self.rhyme_b = next_word
-        print(self.third_line, " = " + self.rhyme_b)
-        starting_words = (starting_words[1], next_word)
-        #print(starting_words)
-        #print("^^^^^^")
         return starting_words
 
 
@@ -117,7 +72,7 @@ class Limerick(object):
         
         next_word = self.n_gram.retreive_ryming_word(starting_words, rhyme)
         line += next_word
-        print(line, " = " + rhyme)
+        #print(line, " = " + rhyme)
         starting_words = (starting_words[1], next_word)
 
         if line_number == 2:
@@ -130,4 +85,7 @@ class Limerick(object):
 
     
     def evalutation(self):
+        # Parse Tree?
+        # Alliteration, assonance
+        # 
         return 0
