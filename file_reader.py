@@ -12,7 +12,7 @@ def read_file():
     """Reads Bob Ross scripts and makes a list of all the words in the text in order."""
     i = 1
     total_texts = []
-    while(i <= 3):
+    while(i <= 13):
         file_name = "./bob_ross_season_scripts/s28/s28ep" + str(i) + ".txt"
         file = open(file_name)
         text = file.read()
@@ -43,13 +43,3 @@ def make_n_gram(words_from_text):
         ngram.add_to_ngram(word_tuple, following_word)
         i += 1
     return ngram
-
-def main():
-    text = read_file()
-    make_n_gram(text)
-
-"""
-Driver for the entire program
-"""
-if __name__ == "__main__":
-    main()

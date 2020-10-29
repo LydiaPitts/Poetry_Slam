@@ -32,6 +32,35 @@ class Limerick(object):
         return pronouncing.syllable_count(pronunciation_list[0])
 
 
+
+
+    def build_first_or_third(self, starting_words, line_number):
+        syllables = self.get_syllables(starting_words[0]) + self.get_syllables(starting_words[1])
+        line = str(starting_words[0]) + " " + str(starting_words[1])
+        syllable_num = 6
+        if(line_number == 3):
+            syllable_num = 4
+        while syllables < syllable_num:
+            next_word = self.n_gram.retreive_next_word(starting_words)
+            syllables += self.get_syllables(next_word)
+            line += " " + next_word
+            starting_words = (starting_words[1], next_word)
+        next_word = self.n_gram.retreive_next_word(starting_words)
+        line += " " + next_word
+        if line_number == 1:
+            self.first_line = line
+            self.rhyme_a = next_word
+            print(line, " = " + self.rhyme_a)
+        else:
+            self.third_line = line
+            self.rhyme_b = next_word
+            print(line, " = " + self.rhyme_b)
+        starting_words = (starting_words[1], next_word)
+        return starting_words
+
+
+
+
     def build_first_line(self, starting_words):
         #print("Start Line 1: ")
        # print(starting_words)
@@ -51,6 +80,7 @@ class Limerick(object):
         #print("^^^^^^")
         return starting_words
     
+
     def build_third_line(self, starting_words):
         #print("Start line 3: ")
        # print(starting_words)
@@ -70,13 +100,11 @@ class Limerick(object):
         return starting_words
 
 
-
     def build_other_lines(self, starting_words, line_number):
         syllables = 0
         line = ""
         syllable_num = 6
         rhyme = self.rhyme_a
-
         if(line_number == 4):
             syllable_num = 4
             rhyme = self.rhyme_b
@@ -91,34 +119,15 @@ class Limerick(object):
         line += next_word
         print(line, " = " + rhyme)
         starting_words = (starting_words[1], next_word)
-        #print(starting_words)
-        #print("^^^^^^")
+
         if line_number == 2:
             self.second_line = line
         elif line_number == 4:
             self.fourth_line = line
         else:
             self.fifth_line = line
-        return starting_words, line
-
-
+        return starting_words
 
     
-
-
-def main():
-    Firstgram = n_gram(gram={}, words=["hello", "world", "there", "thank", "hi"])
-    Firstgram.add_to_ngram(("hello", "world"), "thank")
-    Firstgram.add_to_ngram(("world", "sure"), "thank")
-    Firstgram.add_to_ngram(("world", "thank"), "sure")
-    Firstgram.add_to_ngram(("thank", "sure"), "hi")
-    limerick = Limerick(n_gram=Firstgram)
-    next_words = limerick.build_first_line(("hello", "world"))
-    limerick.build_third_line(("hello", "world"))
-
-
-"""
-Driver for the entire program
-"""
-if __name__ == "__main__":
-    main()
+    def evalutation(self):
+        return 0

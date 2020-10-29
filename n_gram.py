@@ -92,21 +92,3 @@ class n_gram(object):
         return tuple(keys[num])
 
 
-
-def main():
-    Firstgram = n_gram(gram={}, words=["hello", "world", "there", "thank", "hi"])
-    Firstgram.add_to_ngram(("hello", "world"), "thank")
-    Firstgram.add_to_ngram(("hello", "world"), "thank")
-    Firstgram.add_to_ngram(("hello", "world"), "sure")
-    Firstgram.add_to_ngram(("hello", "there"), "hi")
-    Firstgram.retreive_next_word(("hello", "world"))
-    Firstgram.retreive_ryming_word(("hello", "world"), "spank.")
-    Firstgram.get_starting_words()
-
-    
-
-if __name__ == "__main__":
-    main()
-    
-    
-    
