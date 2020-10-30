@@ -179,21 +179,3 @@ class Limerick(object):
         self.fitness += self.examine_line(line_5_tags)
         print(self.fitness)
         return self.fitness
-        
-        
-
-
-
-        # Parse Tree
-        #    ^ evaluate the gramatical structure
-        
-        return 0
-
-
-
-
-
-# Alliteration, assonance 
-        #    ^ for style purposes?
-        # Meter?
-        #    ^ evaluate the "flow" of the poem?
