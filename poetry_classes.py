@@ -23,6 +23,7 @@ class Limerick(object):
         self.rhyme_b = ""
         self.n_gram = n_gram
         self.fitness = 0
+        self.words_in_structure = 1
 
 
     def get_syllables(self, word):
@@ -109,84 +110,76 @@ class Limerick(object):
         return tags
 
 
-    def compare_tags(self, tags):
+    def compare_tag(self, curr_tag, tag):
+        if(curr_tag == "NOUN"):
+                if(tag == "ADJ"):
+                    self.words_in_structure += 1
+                    return "NOM"
+                if(tag == "DET"):
+                    self.words_in_structure += 1
+                    return "NP"
+                if(tag == "NUM" or "ADP"):
+                    self.words_in_structure += 1
+                    return curr_tag
+        if(curr_tag == "NOM"):
+            if(tag == "DET"):
+                self.words_in_structure += 1
+                return "NP"
+            if(tag == "NUM" or "ADV"):
+                self.words_in_structure += 1
+                return curr_tag
+        if(curr_tag == "NP"):
+            if(tag == "VERB"):
+                self.words_in_structure += 1
+                return "VP"
+            if(tag == "PART"):
+                self.words_in_structure += 1
+                return "PP"
+            if(tag == "ADP"):
+                self.words_in_structure += 1
+                return curr_tag
+        if (curr_tag == "VP"):
+            if(tag == "PRON" or "ADV"):
+                self.words_in_structure += 1
+                return curr_tag
+        return tag
+
+    def examine_line(self, tags):
         curr_tag = tags[-1]
         sentence_stack = []
-        words_in_structures = 1
         i = 2
-        print(curr_tag)
+        #print(curr_tag)
         while(i < len(tags) + 1):
             tag = tags[-i]
-            if(curr_tag == "NOUN"):
-                if(tag == "ADJ"):
-                    print("got here 1")
-                    curr_tag = "NOM"
-                    words_in_structures += 1
-                if(tag == "DET"):
-                    print("got here 2")
-                    curr_tag = "NP"
-                    sentence_stack.append("NP")
-                    words_in_structures +=1
-                if(tag == "NUM"):
-                    print("got here 3")
-                    words_in_structures += 1
-                if(tag == "ADP"):
-                    print("got here 4")
-                    words_in_structures += 1
-                else:
-                    curr_tag = tag
-
-            if(curr_tag == "NOM"):
-                if(tag == "DET"):
-                    curr_tag = "NP"
-                    sentence_stack.append("NP")
-                    words_in_structures += 1
-                if(tag == "NUM"):
-                    words_in_structures += 1
-                if(tag == "ADV"):
-                    words_in_structures += 1
-                else:
-                    curr_tag = tag
-
-            if(curr_tag == "NP"):
-                if(tag == "VERB"):
-                    curr_tag = "VP"
-                    sentence_stack.append("VP")
-                    words_in_structures += 1
-                if(tag == "PART"):
-                    curr_tag = "PP"
-                    words_in_structures += 1
-                else:
-                    curr_tag = tag
-
-            if (curr_tag == "VP"):
-                if(tag == "PRON"):
-                    words_in_structures += 1
-                if(tag == "ADV"):
-                    words_in_structures += 1
-                else:
-                    curr_tag = tag
-
-            else:
-                curr_tag = tag
-            print(curr_tag)
+            curr_tag = self.compare_tag(curr_tag, tag)
+            if curr_tag == "VP":
+                sentence_stack.append(curr_tag)
+            if curr_tag == "NP":
+                sentence_stack.append(curr_tag)
+            if curr_tag == "PP":
+                sentence_stack.append(curr_tag)
+            #print(curr_tag)
             i += 1
-        print(words_in_structures)
-        print(sentence_stack)
-        return 0
+        total_sentance_structures = len(sentence_stack)
+        #print(self.words_in_structure)
+        #print(sentence_stack)
+        return total_sentance_structures * self.words_in_structure
 
     def evalutate(self):
-        print("__________________________________")
-        print("I'm evalutaing now:")
         nlp = spacy.load("en_core_web_sm")
         line_1_tags = self.get_tags(nlp(self.first_line))
         line_2_tags = self.get_tags(nlp(self.second_line))
         line_3_tags = self.get_tags(nlp(self.third_line))
         line_4_tags = self.get_tags(nlp(self.fourth_line))
         line_5_tags = self.get_tags(nlp(self.fifth_line))
-        print(self.first_line)
-        print(line_1_tags)
-        self.compare_tags(line_1_tags)
+        self.fitness += self.examine_line(line_1_tags)
+        self.fitness += self.examine_line(line_2_tags)
+        self.fitness += self.examine_line(line_3_tags)
+        self.fitness += self.examine_line(line_4_tags)
+        self.fitness += self.examine_line(line_5_tags)
+        print(self.fitness)
+        return self.fitness
+        
         
 
 
