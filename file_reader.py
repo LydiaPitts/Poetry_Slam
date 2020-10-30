@@ -21,6 +21,9 @@ def read_file():
         text = text.replace('-', '')
         text = text.replace('(', '')
         text = text.replace(')', '')
+        text = text.replace('?', '')
+        text = text.replace('\"', '')
+        text = text.replace('\'', '')
         text = text.split()
         total_texts.extend(text)
         i += 1 

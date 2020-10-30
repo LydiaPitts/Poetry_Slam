@@ -101,16 +101,79 @@ class Limerick(object):
         print(self.fourth_line)
         print(self.fifth_line)
 
-
     
     def get_tags(self, doc):
         tags = []
         for token in doc:
             tags.append(token.pos_)
-            #print(token.text, token.pos_)
-        print(tags)
         return tags
 
+
+    def compare_tags(self, tags):
+        curr_tag = tags[-1]
+        sentence_stack = []
+        words_in_structures = 1
+        i = 2
+        print(curr_tag)
+        while(i < len(tags) + 1):
+            tag = tags[-i]
+            if(curr_tag == "NOUN"):
+                if(tag == "ADJ"):
+                    print("got here 1")
+                    curr_tag = "NOM"
+                    words_in_structures += 1
+                if(tag == "DET"):
+                    print("got here 2")
+                    curr_tag = "NP"
+                    sentence_stack.append("NP")
+                    words_in_structures +=1
+                if(tag == "NUM"):
+                    print("got here 3")
+                    words_in_structures += 1
+                if(tag == "ADP"):
+                    print("got here 4")
+                    words_in_structures += 1
+                else:
+                    curr_tag = tag
+
+            if(curr_tag == "NOM"):
+                if(tag == "DET"):
+                    curr_tag = "NP"
+                    sentence_stack.append("NP")
+                    words_in_structures += 1
+                if(tag == "NUM"):
+                    words_in_structures += 1
+                if(tag == "ADV"):
+                    words_in_structures += 1
+                else:
+                    curr_tag = tag
+
+            if(curr_tag == "NP"):
+                if(tag == "VERB"):
+                    curr_tag = "VP"
+                    sentence_stack.append("VP")
+                    words_in_structures += 1
+                if(tag == "PART"):
+                    curr_tag = "PP"
+                    words_in_structures += 1
+                else:
+                    curr_tag = tag
+
+            if (curr_tag == "VP"):
+                if(tag == "PRON"):
+                    words_in_structures += 1
+                if(tag == "ADV"):
+                    words_in_structures += 1
+                else:
+                    curr_tag = tag
+
+            else:
+                curr_tag = tag
+            print(curr_tag)
+            i += 1
+        print(words_in_structures)
+        print(sentence_stack)
+        return 0
 
     def evalutate(self):
         print("__________________________________")
@@ -121,6 +184,10 @@ class Limerick(object):
         line_3_tags = self.get_tags(nlp(self.third_line))
         line_4_tags = self.get_tags(nlp(self.fourth_line))
         line_5_tags = self.get_tags(nlp(self.fifth_line))
+        print(self.first_line)
+        print(line_1_tags)
+        self.compare_tags(line_1_tags)
+        
 
 
 
