@@ -177,5 +177,5 @@ class Limerick(object):
         self.fitness += self.examine_line(line_3_tags)
         self.fitness += self.examine_line(line_4_tags)
         self.fitness += self.examine_line(line_5_tags)
-        print(self.fitness)
+        #print(self.fitness)
         return self.fitness
