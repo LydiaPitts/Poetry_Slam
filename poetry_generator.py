@@ -48,6 +48,7 @@ def main():
     print("_________________________________________")
     for poem in top_poems:
         poem.print_limerick()
+        print(poem.fitness)
         print("_________________")
 
 if __name__ == "__main__":
