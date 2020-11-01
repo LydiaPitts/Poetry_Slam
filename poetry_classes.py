@@ -95,6 +95,7 @@ class Limerick(object):
         words04 = self.build_other_lines(words03, 4)
         words05 = self.build_other_lines(words04, 5)
 
+
     def print_limerick(self):
         print(self.first_line)
         print(self.second_line)
@@ -165,7 +166,34 @@ class Limerick(object):
         #print(sentence_stack)
         return total_sentance_structures * self.words_in_structure
 
-    def evalutate(self):
+    def evaluate_rhyme(self):
+        if(self.rhyme_a == "the"):
+            return False
+        if(self.rhyme_b == "the"):
+            return False
+        if self.rhyme_a in pronouncing.rhymes(self.rhyme_b):
+            return False
+        first_line = self.first_line.split()
+        second_line = self.second_line.split()
+        if(first_line[-1] == second_line[-1]):
+            print("first line: ", first_line)
+            print("second line: ", second_line)
+            print("First Line Rhyme: ", first_line[-1], " rhyme second line: ", second_line[-1])
+            print("------------------------------")
+            return False
+        third_line = self.third_line.split()
+        fourth_line = self.fourth_line.split()
+        if(third_line[-1] == fourth_line[-1]):
+            print("third line: ", third_line)
+            print("fourth line: ", fourth_line)
+            print("Rhyme b: ", third_line[-1], " rhyme second line: ", fourth_line[-1])
+            print("------------------------------")
+            return False
+        print("RETURN TRUE")
+        return True
+
+
+    def evaluate_lines(self):
         nlp = spacy.load("en_core_web_sm")
         line_1_tags = self.get_tags(nlp(self.first_line))
         line_2_tags = self.get_tags(nlp(self.second_line))
@@ -177,5 +205,80 @@ class Limerick(object):
         self.fitness += self.examine_line(line_3_tags)
         self.fitness += self.examine_line(line_4_tags)
         self.fitness += self.examine_line(line_5_tags)
+
+
+    def evalutate(self):
+        if self.evaluate_rhyme():
+            self.evaluate_lines()
         #print(self.fitness)
         return self.fitness
+
+
+    def get_noun(self, line):
+        nlp = spacy.load("en_core_web_sm")
+        for token in nlp(line):
+            if token.pos_ == "NOUN":
+                return token.text
+
+    def get_adj(self, line):
+        nlp = spacy.load("en_core_web_sm")
+        for token in nlp(line):
+            if token.pos_ == "ADJ":
+                return token.text
+
+
+    def get_noun_list(self):
+        nouns = []
+        nouns.append(self.get_noun(self.first_line))
+        nouns.append(self.get_noun(self.second_line))
+        nouns.append(self.get_noun(self.third_line))
+        nouns.append(self.get_noun(self.fourth_line))
+        nouns.append(self.get_noun(self.fifth_line))
+        to_return = []
+        for noun in nouns:
+            if noun != None:
+                to_return.append(noun)
+        if(len(to_return) < 1):
+            to_return.append("rock")
+        return to_return
+
+
+    def get_adj_list(self):
+        adjectives = []
+        adjectives.append(self.get_adj(self.first_line))
+        adjectives.append(self.get_adj(self.second_line))
+        adjectives.append(self.get_adj(self.third_line))
+        adjectives.append(self.get_adj(self.fourth_line))
+        adjectives.append(self.get_adj(self.fifth_line))
+        to_return = []
+        for adj in adjectives:
+            if adj != None:
+                to_return.append(adj)
+        if(len(to_return) < 1):
+            to_return.append("litte")
+        return to_return
+
+
+    def get_poem_name(self):
+        nouns = self.get_noun_list()
+        adjectives = self.get_adj_list()
+        #print("nouns: ", nouns)
+        #print("adjs: ", adjectives)
+        num_nouns = len(nouns)
+        num = random.randint(0, num_nouns-1)
+        noun = nouns[num]
+        num_adj = len(adjectives)
+        num = random.randint(0, num_adj-1)
+        adj = adjectives[num]
+        name = adj + " " + noun
+        return "Poem Name: " + name
+
+
+"""         
+
+def get_tags(self, doc):
+        tags = []
+        for token in doc:
+            tags.append(token.pos_)
+        return tags
+"""
