@@ -176,20 +176,11 @@ class Limerick(object):
         first_line = self.first_line.split()
         second_line = self.second_line.split()
         if(first_line[-1] == second_line[-1]):
-            print("first line: ", first_line)
-            print("second line: ", second_line)
-            print("First Line Rhyme: ", first_line[-1], " rhyme second line: ", second_line[-1])
-            print("------------------------------")
             return False
         third_line = self.third_line.split()
         fourth_line = self.fourth_line.split()
         if(third_line[-1] == fourth_line[-1]):
-            print("third line: ", third_line)
-            print("fourth line: ", fourth_line)
-            print("Rhyme b: ", third_line[-1], " rhyme second line: ", fourth_line[-1])
-            print("------------------------------")
             return False
-        print("RETURN TRUE")
         return True
 
 
