@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC Poetry</title>
+  </head>
+  <body>
+    <h1>Poetry</h1>
+    <h2>Lydia Pitts: Mission 3</h2>
+    <p>
+      This is the start of a Limmerick
+      <br>
+      bla asdlk eotnvsl aspjfas
+      <br>
+      and another sdf
+      <br>
+      andow fjlsfw
+      <br>
+      thalsdkfj. hsle fhlsdgiow fhsjdk
+    </p>  
+    
+    Select Voice: <select name="" id="voiceList"></select>
+    <br><br>
+	<button id="speakbtn">Speak 2</button>
+	
+	<script>
+		var voiceList = document.querySelector('#voiceList')
+		var speakbtn = document.querySelector('#speakbtn')
+		
+		var tts = window.speechSynthesis;
+        var voices = [];
+        
+        var poem = "almost the color a little. splash at the bottom Ill rittle"
+		
+		GetVoices();
+		
+		if(speechSynthesis !== undefined){
+			speechSynthesis.onvoiceschanged = GetVoices;
+		}
+		
+		speakbtn.addEventListener('click', ()=>{
+			var toSpeak = new SpeechSynthesisUtterance(poem)
+			var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
+			voices.forEach((voice)=>{
+				if(voice.name === selectedVoiceName){
+					toSpeak.voice = voice;
+				}			
+			});
+			tts.speak(toSpeak);
+		});
+		
+		
+		function GetVoices(){
+			voices = tts.getVoices();
+			voiceList.innterHTML = '';
+			voices.forEach((voice)=>{
+				var listItem = document.createElement('option');
+				listItem.textContent = voice.name;
+				listItem.setAttribute('data-lang', voice.lang);
+				listItem.setAttribute('data-name', voice.name);
+				voiceList.appendChild(listItem);
+			});
+			voiceList.selectedIndex = 0;
+		}
+	</script>
+	
+  </body>
+</html>
