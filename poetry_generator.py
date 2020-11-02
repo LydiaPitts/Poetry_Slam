@@ -1,6 +1,19 @@
 """
-TALK ABOUT STUFF
+Author: Lydia Pitts
+CSCI 3725: Computational Creativity
+Mission 6: Poetry Slam
+Last Edited: Nov 1, 2020
+
+The purpose of this program is to write limericks inspired from Bob Ross's season 28 youtube 
+transcripts that are then evaluated and eventually displayed on the brouser. This program
+utilizes n-grams, parse trees as well as other characteristics of limericks and topics we 
+have discussed in class. I have named my program LACTIC - Limericks Accessed Creatively
+Through Intentional Computation
+
+This file drives the poetry generation process, and includes our main function. This is 
+where limericks and their files are actually made.
 """
+
 import pronouncing
 from collections import Counter
 import nltk
@@ -8,7 +21,6 @@ from n_gram import n_gram
 import file_reader as fr
 from poetry_classes import Limerick
 import make_html as html
-
 
 def make_limerick(ngram):
     """Carries out all the functions to make a limerick object useful, and then returns the poem object"""

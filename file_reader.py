@@ -1,5 +1,16 @@
 """
-TALK ABOUT STUFF
+Author: Lydia Pitts
+CSCI 3725: Computational Creativity
+Mission 6: Poetry Slam
+Last Edited: Nov 1, 2020
+
+The purpose of this program is to write limericks inspired from Bob Ross's season 28 youtube 
+transcripts that are then evaluated and eventually displayed on the brouser. This program
+utilizes n-grams, parse trees as well as other characteristics of limericks and topics we 
+have discussed in class. I have named my program LACTIC - Limericks Accessed Creatively
+Through Intentional Computation
+
+This file reads in the Bob Ross script files and creates the ngram object.
 """
 
 from selenium import webdriver
@@ -7,9 +18,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 import json
 from n_gram import n_gram
 
-
 def read_file():
-    """Reads Bob Ross scripts and makes a list of all the words in the text in order."""
+    """Reads Bob Ross scripts and makes a list of all the words in the text in order
+    excluding punctuation and special characters."""
     i = 1
     total_texts = []
     while(i <= 13):

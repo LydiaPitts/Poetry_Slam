@@ -2,9 +2,19 @@
 Author: Lydia Pitts
 CSCI 3725: Computational Creativity
 Mission 6: Poetry Slam
+Last Edited: Nov 1, 2020
 
-_____
+The purpose of this program is to write limericks inspired from Bob Ross's season 28 youtube 
+transcripts that are then evaluated and eventually displayed on the brouser. This program
+utilizes n-grams, parse trees as well as other characteristics of limericks and topics we 
+have discussed in class. I have named my program LACTIC - Limericks Accessed Creatively
+Through Intentional Computation
+
+This file contains the n_gram class and all of it's associated functions. In this case it
+is a bigram, and this class offers the appropriate access to information. Other classes are
+able to retrive words based on probabilities and specifications, as well as add to the bigram.
 """
+
 
 import random
 import pronouncing
@@ -13,10 +23,9 @@ import string
 class n_gram(object):
     """
     Attributes:
-        ngram --> nested dictionary where keys are a tuple of two words and the value is 
-        a dictionary that contains the word following the two words and the number of times 
-        that word appears.
-        words -->
+    gram -- nested dictionary where keys are a tuple of two words and the value is a dictionary 
+    that contains the word following the two words and the number of times that word appears
+    words -- a list of all the words found in the inspiring set (not nessecarily ordered)
     """
 
     def __init__(self, gram, words):
@@ -61,7 +70,6 @@ class n_gram(object):
         """Based on the two given words (in the form of a tuple) selects the next word 
         that rhymes probabilistically"""
         rhymes = pronouncing.rhymes(word_to_rhyme_with.lower())
-        #print("Rhymes: ", rhymes)
         if(two_words in self.gram):
             following = self.gram[two_words]
             word_probabilities = []
@@ -73,12 +81,10 @@ class n_gram(object):
                         j += 1
             if(len(word_probabilities) > 0):
                 num = random.randint(0, len(word_probabilities)-1)
-                #print(word_probabilities[num], " = next character rhyme")
                 return word_probabilities[num]
         if len(rhymes) < 1:
             return word_to_rhyme_with
         num = random.randint(0, len(rhymes)-1)
-        #print(rhymes[num] + " = rand rhyme")
         return rhymes[num]
 
 

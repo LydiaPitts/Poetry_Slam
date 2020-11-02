@@ -1,5 +1,17 @@
 """
+Author: Lydia Pitts
+CSCI 3725: Computational Creativity
+Mission 6: Poetry Slam
+Last Edited: Nov 1, 2020
 
+The purpose of this program is to write limericks inspired from Bob Ross's season 28 youtube 
+transcripts that are then evaluated and eventually displayed on the brouser. This program
+utilizes n-grams, parse trees as well as other characteristics of limericks and topics we 
+have discussed in class. I have named my program LACTIC - Limericks Accessed Creatively
+Through Intentional Computation
+
+This file contains the functions to create and write to an html file that will display
+and read aloud each given poem.
 """
 
 
@@ -11,7 +23,9 @@ def make_html_doc(poem_name, file_name, line1, line2, line3, line4, line5):
         new_poem.close()
 
 def html_text(poem_name, line1, line2, line3, line4, line5):
-    """returns a string that will become the body of the html file for the given poem"""
+    """returns a string that will become the body of the html file for the given poem.
+    I utilized this video (https://www.youtube.com/watch?v=VAkquAxQUPc) in order to 
+    write the JS read outloud functionality"""
     return "<!DOCTYPE html>" + "\n" + \
         "<html lang=\"en\">"  + "\n" + \
         "  <head>"  + "\n" + \

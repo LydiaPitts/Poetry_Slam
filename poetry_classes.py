@@ -1,5 +1,18 @@
 """
-WRITE THINGS
+Author: Lydia Pitts
+CSCI 3725: Computational Creativity
+Mission 6: Poetry Slam
+Last Edited: Nov 1, 2020
+
+The purpose of this program is to write limericks inspired from Bob Ross's season 28 youtube 
+transcripts that are then evaluated and eventually displayed on the brouser. This program
+utilizes n-grams, parse trees as well as other characteristics of limericks and topics we 
+have discussed in class. I have named my program LACTIC - Limericks Accessed Creatively
+Through Intentional Computation
+
+This file contains the limerick class and all of it's associated functions. This class 
+is essentail for the functionality of creating ("writing"), evaluating and naming the
+poems.
 """
 
 import random
@@ -10,7 +23,19 @@ import spacy
 class Limerick(object):
     """
     Attributes:
-    
+    first_line -- string representing the 7-10 sylable first line
+    second_line -- string representing the 7-10 sylable second line
+    third_line -- string representing the 5-7 sylable first line
+    fourth_line -- string representing the 5-7 sylable first line
+    fifth_line -- string representing the 7-10 sylable fifth line
+    rhyme_a -- string representing the last word in the first line 
+    to compare the rhyme scheme with the second and fifth lines
+    rhyme_b -- string representing the last word in the third line 
+    to compare the rhyme scheme with the fourth line
+    n_gram -- the bigram from the Bob Ross scripts
+    fitness -- integer representing the fitness/'quality' of the poem
+    words_in_structure -- integer representing total number of 
+    'useful' words
     """
 
 
@@ -54,11 +79,9 @@ class Limerick(object):
         if line_number == 1:
             self.first_line = line
             self.rhyme_a = next_word
-            #print(line, " = " + self.rhyme_a)
         else:
             self.third_line = line
             self.rhyme_b = next_word
-            #print(line, " = " + self.rhyme_b)
         starting_words = (starting_words[1], next_word)
         return starting_words
 
@@ -121,7 +144,8 @@ class Limerick(object):
     def compare_tag(self, curr_tag, tag):
         """A diy version of a parse tree. Given certain orders of POS tag, different sentence
         structures are represented. The number of words in a more 'cohesive' sentence structure
-        are added to words_in_structure so that it can be utilized in the fitness calculations."""
+        are added to words_in_structure so that it can be utilized in the fitness calculations.
+        Ideas of structure came from https://www.nltk.org/book/ch08.html"""
         if(curr_tag == "NOUN"):
                 if(tag == "ADJ"):
                     self.words_in_structure += 1
