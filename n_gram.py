@@ -16,6 +16,7 @@ class n_gram(object):
         ngram --> nested dictionary where keys are a tuple of two words and the value is 
         a dictionary that contains the word following the two words and the number of times 
         that word appears.
+        words -->
     """
 
     def __init__(self, gram, words):
@@ -33,15 +34,10 @@ class n_gram(object):
             else:
                 following.setdefault(following_word, 1)
             self.gram[two_words] = following
-            #print(two_words)
-            #print(self.gram[two_words])
-            #print("___________________")
         else:
             following.setdefault(following_word, 1)
             self.gram.setdefault(two_words, following)
-            #print(two_words)
-            #print(self.gram[two_words])
-            #print("******************")
+
 
     def retreive_next_word(self, two_words):
         """Based on the two given words (in the form of a tuple) selects the next word 

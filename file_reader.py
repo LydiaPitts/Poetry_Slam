@@ -31,7 +31,7 @@ def read_file():
 
 
 def make_n_gram(words_from_text):
-    """Using the list of words from the Bob Ross Scripts, create the n-gram for the text"""
+    """Using the list of words from the Bob Ross Scripts, create the bigram for the text"""
     ngram = n_gram(gram={}, words=words_from_text)
     num = len(words_from_text)
     i = 0

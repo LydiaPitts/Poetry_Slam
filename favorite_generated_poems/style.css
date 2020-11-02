@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #5EB1BF;
+  }
+  h1 {
+    color: #042A2B;
+    text-align: center;
+    font-size: 65px;
+  }
+  p {
+    color: #042A2B;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 17px;
+  }
+ button {
+    background-color: #042A2B; 
+    border: none;
+    color: #5EB1BF;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }

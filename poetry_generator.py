@@ -11,17 +11,18 @@ import make_html as html
 
 
 def make_limerick(ngram):
+    """Carries out all the functions to make a limerick object useful, and then returns the poem object"""
     limerick = Limerick(ngram)
     starting_words = ngram.get_starting_words()
     limerick.build_full_limerick(starting_words)
-    #limerick.print_limerick()
     limerick.evalutate()
     return limerick
 
 
 def get_limericks_above_100(ngram):
+    """Continuously loops until it creates a list of 5 poem with a fitness scoring above 100"""
     top_limericks = []
-    while len(top_limericks) < 2:
+    while len(top_limericks) < 10:
         limerick = make_limerick(ngram)
         add_limerick = False
         if limerick.fitness > 100:
@@ -34,16 +35,18 @@ def get_limericks_above_100(ngram):
             top_limericks.append(limerick)
     return top_limericks
 
+
 def create_files(limerick):
+    "Makes an html file with the information from a given limerick"
     poem_name = limerick.get_poem_name()
     separate_name = poem_name.split()
-    poem_name = separate_name[0] + "_" + separate_name[1]
+    file_name = separate_name[0] + "_" + separate_name[1]
     line1 = limerick.first_line
     line2 = limerick.second_line
     line3 = limerick.third_line
     line4 = limerick.fourth_line
     line5 = limerick.fifth_line
-    html.make_html_doc(poem_name, line1, line2, line3, line4, line5)
+    html.make_html_doc(poem_name, file_name, line1, line2, line3, line4, line5)
 
 
 def main():
@@ -58,6 +61,7 @@ def main():
         print(poem.fitness)
         create_files(poem)
         print("_________________")
+
 
 if __name__ == "__main__":
     main()

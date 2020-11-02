@@ -10,7 +10,7 @@ import spacy
 class Limerick(object):
     """
     Attributes:
-        
+    
     """
 
     def __init__(self, n_gram):
@@ -27,6 +27,7 @@ class Limerick(object):
 
 
     def get_syllables(self, word):
+        """Given a word, count and return the number of syllables in that word"""
         word = str(word)
         pronunciation_list = pronouncing.phones_for_word(word)
         if(len(pronunciation_list) < 1):
@@ -35,6 +36,7 @@ class Limerick(object):
 
 
     def build_first_or_third(self, starting_words, line_number):
+        
         syllables = 0
         line = ""
         syllable_num = 6

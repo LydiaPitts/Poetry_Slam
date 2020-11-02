@@ -1,6 +1,6 @@
 
-def make_html_doc(poem_name, line1, line2, line3, line4, line5):
-     with open("poems/" + poem_name + ".html", 'w') as new_poem:
+def make_html_doc(poem_name, file_name, line1, line2, line3, line4, line5):
+     with open("poems/" + file_name + ".html", 'w') as new_poem:
         text = html_text(poem_name, line1, line2, line3, line4, line5)
         new_poem.write(text)
         new_poem.close()
@@ -16,7 +16,6 @@ def html_text(poem_name, line1, line2, line3, line4, line5):
         "  </head>" + "\n" +\
         "  <body>" + "\n" +\
         "    <h1>" + poem_name + "</h1>" + "\n" +\
-        "    <h2>Lydia Pitts: Mission 6</h2>" + "\n" +\
         "    <p>" + "\n" +\
         "      " + line1 + "\n" +\
         "      <br>" + "\n" +\
@@ -29,7 +28,7 @@ def html_text(poem_name, line1, line2, line3, line4, line5):
         "      " + line5 + "\n"+\
         "    <p>" + "\n" +\
         "    <button id=\"speakbtn\">Hear Poem</button>" + "\n\n" +\
-        "    <br>" + "\n" +\
+        "    <br><br>" + "\n" +\
         "    Select Voice: <select name=\"\" id=\"voiceList\"></select>" + "\n\n" +\
         "    <script>" + "\n" +\
         "      var voiceList = document.querySelector(\'#voiceList\')" + "\n" +\
