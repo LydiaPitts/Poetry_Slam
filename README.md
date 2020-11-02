@@ -50,6 +50,8 @@ Once the program has run, access the poem files in the poems folder and double c
 - https://universaldependencies.org/docs/u/pos/
 - https://pronouncing.readthedocs.io/en/latest/tutorial.html#next-steps
 - https://pronouncing.readthedocs.io/en/latest/tutorial.html#
+- https://usefulangle.com/post/98/javascript-text-to-speech
+- https://www.hongkiat.com/blog/text-to-speech/
 
 ## Discussion: 'How working on this system challenged you as a computer scientist?'
 The challege of multiple, relatively new, laguages as well as applying concepts and doing research challenged me as a computer scientist. This project is complex and required me to slow down and approach it intentionally. I have never done research regarding computer science before, and it added a new aspect of my understanding of the concepts, but also made me critically think about what I was looking for and how to search for it. I had to use key words intentionally and it pushed me to break down the assignment into researchable pieces. Through this project I practiced creating an outline, and using pen and paper to sit with and organize my approach. Beyond the critical thinking and organizational, this project pushed my conceptual understanding of n-grams, parse trees and how to process language. It was interesting to make connections to the other course I am taking, Theory of Computation. I also improved on my technical skills through research and practice. I worked hard to mantain syntax as well as breaking down my code into smaller, understandable, reusable pieces. This project pushed me in a variety of ways, and I think that I have grown from it. 
