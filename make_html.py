@@ -1,11 +1,17 @@
+"""
+
+"""
+
 
 def make_html_doc(poem_name, file_name, line1, line2, line3, line4, line5):
-     with open("poems/" + file_name + ".html", 'w') as new_poem:
+    """Create and write to an html file that displays and reads aloud the given poem"""
+    with open("poems/" + file_name + ".html", 'w') as new_poem:
         text = html_text(poem_name, line1, line2, line3, line4, line5)
         new_poem.write(text)
         new_poem.close()
 
 def html_text(poem_name, line1, line2, line3, line4, line5):
+    """returns a string that will become the body of the html file for the given poem"""
     return "<!DOCTYPE html>" + "\n" + \
         "<html lang=\"en\">"  + "\n" + \
         "  <head>"  + "\n" + \

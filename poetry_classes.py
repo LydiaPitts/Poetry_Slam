@@ -13,6 +13,7 @@ class Limerick(object):
     
     """
 
+
     def __init__(self, n_gram):
         self.first_line = ""
         self.second_line = ""
@@ -36,7 +37,8 @@ class Limerick(object):
 
 
     def build_first_or_third(self, starting_words, line_number):
-        
+        """Builds the first and third lines of the limerick. These two lines initialize
+        the rhyme scheme, and are needed in order to create the others."""
         syllables = 0
         line = ""
         syllable_num = 6
@@ -62,6 +64,8 @@ class Limerick(object):
 
 
     def build_other_lines(self, starting_words, line_number):
+        """Builds the second, fourth and fifth lines. These three lines rely on the 
+        rhyme scheme established in the first and third, so they are built separately."""
         syllables = 0
         line = ""
         syllable_num = 6
@@ -69,18 +73,14 @@ class Limerick(object):
         if(line_number == 4):
             syllable_num = 4
             rhyme = self.rhyme_b
-
         while syllables < syllable_num:
             next_word = self.n_gram.retreive_next_word(starting_words)
             syllables += self.get_syllables(next_word)
             line += next_word + " "
             starting_words = (starting_words[1], next_word)
-        
         next_word = self.n_gram.retreive_ryming_word(starting_words, rhyme)
         line += next_word
-        #print(line, " = " + rhyme)
         starting_words = (starting_words[1], next_word)
-
         if line_number == 2:
             self.second_line = line
         elif line_number == 4:
@@ -91,6 +91,8 @@ class Limerick(object):
 
 
     def build_full_limerick(self, starting_words):
+        """Utilizing the build line functions, all five of the lines are written and stored
+        in the line attributes of the class"""
         words01 = self.build_first_or_third(starting_words, 1)
         words02 = self.build_other_lines(words01, 2)
         words03 = self.build_first_or_third(words02, 3)
@@ -99,6 +101,7 @@ class Limerick(object):
 
 
     def print_limerick(self):
+        """Prints the limerick line by line"""
         print(self.first_line)
         print(self.second_line)
         print(self.third_line)
@@ -107,6 +110,8 @@ class Limerick(object):
 
     
     def get_tags(self, doc):
+        """Retreives the parts of speech tags(ex: noun, adj, etc) and returns 
+        them in an array representing the order of POS tags in each line"""
         tags = []
         for token in doc:
             tags.append(token.pos_)
@@ -114,6 +119,9 @@ class Limerick(object):
 
 
     def compare_tag(self, curr_tag, tag):
+        """A diy version of a parse tree. Given certain orders of POS tag, different sentence
+        structures are represented. The number of words in a more 'cohesive' sentence structure
+        are added to words_in_structure so that it can be utilized in the fitness calculations."""
         if(curr_tag == "NOUN"):
                 if(tag == "ADJ"):
                     self.words_in_structure += 1
@@ -147,11 +155,15 @@ class Limerick(object):
                 return curr_tag
         return tag
 
+
     def examine_line(self, tags):
+        """Looks at a single line, and calculates the fitness of that line. More 'points' are
+        given to lines that have greater numbers of cohesive sentence structuers, as well as 
+        cohesive sentence structures with more words in them (meaning more of the line should
+        'make sense'"""
         curr_tag = tags[-1]
         sentence_stack = []
         i = 2
-        #print(curr_tag)
         while(i < len(tags) + 1):
             tag = tags[-i]
             curr_tag = self.compare_tag(curr_tag, tag)
@@ -161,14 +173,15 @@ class Limerick(object):
                 sentence_stack.append(curr_tag)
             if curr_tag == "PP":
                 sentence_stack.append(curr_tag)
-            #print(curr_tag)
             i += 1
         total_sentance_structures = len(sentence_stack)
-        #print(self.words_in_structure)
-        #print(sentence_stack)
         return total_sentance_structures * self.words_in_structure
 
+
     def evaluate_rhyme(self):
+        """Makes sure that the rhyme scheme makes sense, and returns false if it does not.
+        The makes for a terrible rhyme scheme, and the first/second line cannot have the 
+        same word be their ending word, and neither can the third/fourth."""
         if(self.rhyme_a == "the"):
             return False
         if(self.rhyme_b == "the"):
@@ -187,6 +200,8 @@ class Limerick(object):
 
 
     def evaluate_lines(self):
+        """Evaluates the fitness for the entire poem by evaluating each of the fitness
+        of each of the lines and adding it together."""
         nlp = spacy.load("en_core_web_sm")
         line_1_tags = self.get_tags(nlp(self.first_line))
         line_2_tags = self.get_tags(nlp(self.second_line))
@@ -201,19 +216,23 @@ class Limerick(object):
 
 
     def evalutate(self):
+        """The summative fitness function. If the rhyme scheme is okay, then it evaluates
+        all of the lines for the fitness."""
         if self.evaluate_rhyme():
             self.evaluate_lines()
-        #print(self.fitness)
         return self.fitness
 
 
     def get_noun(self, line):
+        """Given a line of the poem, a list of all the nouns in that line is returned"""
         nlp = spacy.load("en_core_web_sm")
         for token in nlp(line):
             if token.pos_ == "NOUN":
                 return token.text
 
+
     def get_adj(self, line):
+        """Given a line of the poem, a list of all the adjectives in that line is returned"""
         nlp = spacy.load("en_core_web_sm")
         for token in nlp(line):
             if token.pos_ == "ADJ":
@@ -221,6 +240,7 @@ class Limerick(object):
 
 
     def get_noun_list(self):
+        """Sums up all of the nouns from all of the lines in the poem (excluting additions of None)"""
         nouns = []
         nouns.append(self.get_noun(self.first_line))
         nouns.append(self.get_noun(self.second_line))
@@ -237,6 +257,7 @@ class Limerick(object):
 
 
     def get_adj_list(self):
+        """Sums up all of the adjectives from all of the lines in the poem (excluting additions of None)"""
         adjectives = []
         adjectives.append(self.get_adj(self.first_line))
         adjectives.append(self.get_adj(self.second_line))
@@ -253,10 +274,10 @@ class Limerick(object):
 
 
     def get_poem_name(self):
+        """Retreives all of the Adjectives and Nouns within the poem and returns the name of the
+        poem in the format of adjective + noun"""
         nouns = self.get_noun_list()
         adjectives = self.get_adj_list()
-        #print("nouns: ", nouns)
-        #print("adjs: ", adjectives)
         num_nouns = len(nouns)
         num = random.randint(0, num_nouns-1)
         noun = nouns[num]
@@ -265,13 +286,3 @@ class Limerick(object):
         adj = adjectives[num]
         name = adj + " " + noun
         return name
-
-
-"""         
-
-def get_tags(self, doc):
-        tags = []
-        for token in doc:
-            tags.append(token.pos_)
-        return tags
-"""
