@@ -262,7 +262,7 @@ class Limerick(object):
         num = random.randint(0, num_adj-1)
         adj = adjectives[num]
         name = adj + " " + noun
-        return "Poem Name: " + name
+        return name
 
 
 """         
