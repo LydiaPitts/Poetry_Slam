@@ -26,12 +26,12 @@ def read_file():
     total_texts = []
     while(i <= 13):
         file_name = "./bob_ross_season_scripts/s28/s28ep" + str(i) + ".txt"
-        bob_ross_file = open(file_name)
-        text = bob_ross_file.read()
-        text = re.sub('[\.\?(),"!_\']', "", text)
-        text = text.split()
-        total_texts.extend(text)
-        i += 1 
+        with open(file_name) as bob_ross_file:
+            text = bob_ross_file.read()
+            text = re.sub('[\.\?(),"!_\']', "", text)
+            text = text.split()
+            total_texts.extend(text)
+            i += 1 
         #print(total_texts)
     return total_texts
 

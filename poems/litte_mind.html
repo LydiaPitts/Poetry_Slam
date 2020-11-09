@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic HTML Page</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1>litte mind</h1>
+    <p>
+      see what kind of protection because
+      <br>
+      itll change your mind is the draus
+      <br>
+      right the in all kinds
+      <br>
+      of trees that live mankinds
+      <br>
+      Thats bit trees You than assure claus
+    <p>
+    <button id="speakbtn">Hear Poem</button>
+
+    <br><br>
+    Select Voice: <select name="" id="voiceList"></select>
+
+    <script>
+      var voiceList = document.querySelector('#voiceList')
+      var speakbtn = document.querySelector('#speakbtn')
+
+      var tts = window.speechSynthesis;
+      var voices = [];
+
+      var poem = "see what kind of protection because. itll change your mind is the draus. right the in all kinds. of trees that live mankinds. Thats bit trees You than assure claus. "
+      GetVoices();
+
+      if(speechSynthesis !== undefined){
+	     speechSynthesis.onvoiceschanged = GetVoices;
+      }
+
+      speakbtn.addEventListener('click', ()=>{
+        var toSpeak = new SpeechSynthesisUtterance(poem)
+        var selectedVoiceName = voiceList.selectedOptions[0].getAttribute('data-name');
+        voices.forEach((voice)=>{
+          if(voice.name === selectedVoiceName){
+            toSpeak.voice = voice;
+          }
+        });
+        tts.speak(toSpeak);
+      });
+
+      function GetVoices(){
+	     voices = tts.getVoices();
+	     voiceList.innterHTML = '';
+	     voices.forEach((voice)=>{
+		    var listItem = document.createElement('option');
+		    listItem.textContent = voice.name;
+		    listItem.setAttribute('data-lang', voice.lang);
+		    listItem.setAttribute('data-name', voice.name);
+		    voiceList.appendChild(listItem);
+	     });
+	     voiceList.selectedIndex = 0;
+      }
+    </script>
+  </body>
+</html>
