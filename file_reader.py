@@ -17,6 +17,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import json
 from n_gram import n_gram
+import re
 
 def read_file():
     """Reads Bob Ross scripts and makes a list of all the words in the text in order
@@ -25,19 +26,13 @@ def read_file():
     total_texts = []
     while(i <= 13):
         file_name = "./bob_ross_season_scripts/s28/s28ep" + str(i) + ".txt"
-        file = open(file_name)
-        text = file.read()
-        text = text.replace('.', '')
-        text = text.replace(',', '')
-        text = text.replace('-', '')
-        text = text.replace('(', '')
-        text = text.replace(')', '')
-        text = text.replace('?', '')
-        text = text.replace('\"', '')
-        text = text.replace('\'', '')
+        bob_ross_file = open(file_name)
+        text = bob_ross_file.read()
+        text = re.sub('[\.\?(),"!_\']', "", text)
         text = text.split()
         total_texts.extend(text)
         i += 1 
+        #print(total_texts)
     return total_texts
 
 
