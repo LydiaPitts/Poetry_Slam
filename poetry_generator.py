@@ -32,9 +32,9 @@ def make_limerick(ngram):
 
 
 def get_limericks_above_100(ngram):
-    """Continuously loops until it creates a list of 5 poem with a fitness scoring above 100"""
+    """Continuously loops until it creates a list of 3 poem with a fitness scoring above 100"""
     top_limericks = []
-    while len(top_limericks) < 5:
+    while len(top_limericks) < 3:
         limerick = make_limerick(ngram)
         add_limerick = False
         if limerick.fitness > 100:

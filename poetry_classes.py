@@ -174,7 +174,7 @@ class Limerick(object):
                 self.words_in_structure += 1
                 return curr_tag
         if curr_tag == "VP":
-            if(tag == "PRON" or "ADV"):
+            if (tag == "PRON") or (tag == "ADV"):
                 self.words_in_structure += 1
                 return curr_tag
         return tag
