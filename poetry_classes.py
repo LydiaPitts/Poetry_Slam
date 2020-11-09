@@ -56,7 +56,7 @@ class Limerick(object):
         """Given a word, count and return the number of syllables in that word"""
         word = str(word)
         pronunciation_list = pronouncing.phones_for_word(word)
-        if(len(pronunciation_list) < 1):
+        if len(pronunciation_list) < 1:
             return 1
         return pronouncing.syllable_count(pronunciation_list[0])
 
@@ -67,7 +67,7 @@ class Limerick(object):
         syllables = 0
         line = ""
         syllable_num = 6
-        if(line_number == 3):
+        if line_number == 3:
             syllable_num = 4
         while syllables < syllable_num:
             next_word = self.n_gram.retreive_next_word(starting_words)
@@ -93,7 +93,7 @@ class Limerick(object):
         line = ""
         syllable_num = 6
         rhyme = self.rhyme_a
-        if(line_number == 4):
+        if line_number == 4:
             syllable_num = 4
             rhyme = self.rhyme_b
         while syllables < syllable_num:
@@ -146,35 +146,35 @@ class Limerick(object):
         structures are represented. The number of words in a more 'cohesive' sentence structure
         are added to words_in_structure so that it can be utilized in the fitness calculations.
         Ideas of structure came from https://www.nltk.org/book/ch08.html"""
-        if(curr_tag == "NOUN"):
-                if(tag == "ADJ"):
-                    self.words_in_structure += 1
-                    return "NOM"
-                if(tag == "DET"):
-                    self.words_in_structure += 1
-                    return "NP"
-                if(tag == "NUM" or "ADP"):
-                    self.words_in_structure += 1
-                    return curr_tag
-        if(curr_tag == "NOM"):
-            if(tag == "DET"):
+        if curr_tag == "NOUN":
+            if tag == "ADJ":
+                self.words_in_structure += 1
+                return "NOM"
+            if tag == "DET":
                 self.words_in_structure += 1
                 return "NP"
-            if(tag == "NUM" or "ADV"):
+            if (tag == "NUM") or (tag =="ADP"):
                 self.words_in_structure += 1
                 return curr_tag
-        if(curr_tag == "NP"):
-            if(tag == "VERB"):
+        if curr_tag == "NOM":
+            if tag == "DET":
+                self.words_in_structure += 1
+                return "NP"
+            if (tag == "NUM") or (tag == "ADV"):
+                self.words_in_structure += 1
+                return curr_tag
+        if curr_tag == "NP":
+            if tag == "VERB":
                 self.words_in_structure += 1
                 return "VP"
-            if(tag == "PART"):
+            if tag == "PART":
                 self.words_in_structure += 1
                 return "PP"
-            if(tag == "ADP"):
+            if tag == "ADP":
                 self.words_in_structure += 1
                 return curr_tag
-        if (curr_tag == "VP"):
-            if(tag == "PRON" or "ADV"):
+        if curr_tag == "VP":
+            if (tag == "PRON") or (tag == "ADV"):
                 self.words_in_structure += 1
                 return curr_tag
         return tag
@@ -188,7 +188,7 @@ class Limerick(object):
         curr_tag = tags[-1]
         sentence_stack = []
         i = 2
-        while(i < len(tags) + 1):
+        while i < (len(tags) + 1):
             tag = tags[-i]
             curr_tag = self.compare_tag(curr_tag, tag)
             if curr_tag == "VP":
@@ -206,19 +206,19 @@ class Limerick(object):
         """Makes sure that the rhyme scheme makes sense, and returns false if it does not.
         The makes for a terrible rhyme scheme, and the first/second line cannot have the 
         same word be their ending word, and neither can the third/fourth."""
-        if(self.rhyme_a == "the"):
+        if self.rhyme_a == "the":
             return False
-        if(self.rhyme_b == "the"):
+        if self.rhyme_b == "the":
             return False
         if self.rhyme_a in pronouncing.rhymes(self.rhyme_b):
             return False
         first_line = self.first_line.split()
         second_line = self.second_line.split()
-        if(first_line[-1] == second_line[-1]):
+        if first_line[-1] == second_line[-1]:
             return False
         third_line = self.third_line.split()
         fourth_line = self.fourth_line.split()
-        if(third_line[-1] == fourth_line[-1]):
+        if third_line[-1] == fourth_line[-1]:
             return False
         return True
 
@@ -275,7 +275,7 @@ class Limerick(object):
         for noun in nouns:
             if noun != None:
                 to_return.append(noun)
-        if(len(to_return) < 1):
+        if len(to_return) < 1:
             to_return.append("rock")
         return to_return
 
@@ -292,7 +292,7 @@ class Limerick(object):
         for adj in adjectives:
             if adj != None:
                 to_return.append(adj)
-        if(len(to_return) < 1):
+        if len(to_return) < 1:
             to_return.append("litte")
         return to_return
 

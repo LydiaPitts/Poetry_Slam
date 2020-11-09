@@ -32,7 +32,6 @@ def read_file():
             text = text.split()
             total_texts.extend(text)
             i += 1 
-        #print(total_texts)
     return total_texts
 
 
