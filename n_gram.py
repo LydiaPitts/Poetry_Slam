@@ -36,9 +36,9 @@ class n_gram(object):
         """Adds a tuple of two words as they key to the Ngram, and the word that follows 
         those two words (and the # of times it follows those words) as the value"""
         following = {}
-        if(two_words in self.gram):
+        if two_words in self.gram:
             following = self.gram[two_words]
-            if(following_word in following.keys()):
+            if following_word in following.keys():
                 following[following_word] += 1
             else:
                 following.setdefault(following_word, 1)
@@ -51,12 +51,12 @@ class n_gram(object):
     def retreive_next_word(self, two_words):
         """Based on the two given words (in the form of a tuple) selects the next word 
         probabilistically"""
-        if(two_words in self.gram):
+        if two_words in self.gram:
             following = self.gram[two_words]
             word_probabilities = []
             for key in following.keys():
                 j = 0
-                while(j < following[key]):
+                while j < following[key]:
                     word_probabilities.append(key)
                     j += 1
             num = random.randint(0, len(word_probabilities)-1)
@@ -70,16 +70,16 @@ class n_gram(object):
         """Based on the two given words (in the form of a tuple) selects the next word 
         that rhymes probabilistically"""
         rhymes = pronouncing.rhymes(word_to_rhyme_with.lower())
-        if(two_words in self.gram):
+        if two_words in self.gram:
             following = self.gram[two_words]
             word_probabilities = []
             for key in following.keys():
-                if(key in rhymes):
+                if key in rhymes:
                     j = 0
-                    while(j < following[key]):
+                    while j < following[key]:
                         word_probabilities.append(key)
                         j += 1
-            if(len(word_probabilities) > 0):
+            if len(word_probabilities) > 0:
                 num = random.randint(0, len(word_probabilities)-1)
                 return word_probabilities[num]
         if len(rhymes) < 1:

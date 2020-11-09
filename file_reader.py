@@ -24,7 +24,7 @@ def read_file():
     excluding punctuation and special characters."""
     i = 1
     total_texts = []
-    while(i <= 13):
+    while i <= 13:
         file_name = "./bob_ross_season_scripts/s28/s28ep" + str(i) + ".txt"
         with open(file_name) as bob_ross_file:
             text = bob_ross_file.read()
@@ -40,7 +40,7 @@ def make_n_gram(words_from_text):
     ngram = n_gram(gram={}, words=words_from_text)
     num = len(words_from_text)
     i = 0
-    while(i < num-3):
+    while i < num-3:
         word_tuple = (words_from_text[i], words_from_text[i+1])
         following_word = (words_from_text[i+2])
         ngram.add_to_ngram(word_tuple, following_word)

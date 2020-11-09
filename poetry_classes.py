@@ -153,7 +153,7 @@ class Limerick(object):
             if tag == "DET":
                 self.words_in_structure += 1
                 return "NP"
-            if (tag == "NUM") or (tag =="ADP"):
+            if (tag == "NUM") or (tag == "ADP"):
                 self.words_in_structure += 1
                 return curr_tag
         if curr_tag == "NOM":
@@ -174,7 +174,7 @@ class Limerick(object):
                 self.words_in_structure += 1
                 return curr_tag
         if curr_tag == "VP":
-            if (tag == "PRON") or (tag == "ADV"):
+            if(tag == "PRON" or "ADV"):
                 self.words_in_structure += 1
                 return curr_tag
         return tag
